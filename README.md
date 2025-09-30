@@ -96,17 +96,9 @@ MORPH_API_KEY=
 # Domain of the site
 NEXT_PUBLIC_SITE_URL=
 
-# Rate limit
-RATE_LIMIT_MAX_REQUESTS=
-RATE_LIMIT_WINDOW=
-
-# Vercel/Upstash KV (short URLs, rate limiting)
+# Vercel/Upstash KV (short URLs only)
 KV_REST_API_URL=
 KV_REST_API_TOKEN=
-
-# Supabase (auth)
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
 
 # PostHog (analytics)
 NEXT_PUBLIC_POSTHOG_KEY=
@@ -117,9 +109,6 @@ NEXT_PUBLIC_POSTHOG_HOST=
 # Disable API key and base URL input in the chat
 # NEXT_PUBLIC_NO_API_KEY_INPUT=
 # NEXT_PUBLIC_NO_BASE_URL_INPUT=
-
-# Hide local models from the list of available models
-# NEXT_PUBLIC_HIDE_LOCAL_MODELS=
 ```
 
 ### 4. Start the development server
