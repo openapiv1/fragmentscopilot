@@ -1,19 +1,10 @@
-import { handleAPIError, createRateLimitResponse } from '@/lib/api-errors'
-import { Duration } from '@/lib/duration'
+import { handleAPIError } from '@/lib/api-errors'
 import { getModelClient, LLMModel, LLMModelConfig } from '@/lib/models'
 import { applyPatch } from '@/lib/morph'
-import ratelimit from '@/lib/ratelimit'
 import { FragmentSchema, morphEditSchema, MorphEditSchema } from '@/lib/schema'
 import { generateObject, LanguageModel, CoreMessage } from 'ai'
 
 export const maxDuration = 300
-
-const rateLimitMaxRequests = process.env.RATE_LIMIT_MAX_REQUESTS
-  ? parseInt(process.env.RATE_LIMIT_MAX_REQUESTS)
-  : 10
-const ratelimitWindow = process.env.RATE_LIMIT_WINDOW
-  ? (process.env.RATE_LIMIT_WINDOW as Duration)
-  : '1d'
 
 // System prompt is constructed dynamically below using the current file context
 
@@ -29,19 +20,6 @@ export async function POST(req: Request) {
     config: LLMModelConfig
     currentFragment: FragmentSchema
   } = await req.json()
-
-  // Rate limiting (same as chat route)
-  const limit = !config.apiKey
-    ? await ratelimit(
-        req.headers.get('x-forwarded-for'),
-        rateLimitMaxRequests,
-        ratelimitWindow,
-      )
-    : false
-
-  if (limit) {
-    return createRateLimitResponse(limit)
-  }
 
   const { model: modelNameString, apiKey: modelApiKey, ...modelParams } = config
   const modelClient = getModelClient(model, config)

@@ -16,8 +16,6 @@ import { ChevronsRight, LoaderCircle } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 
 export function Preview({
-  teamID,
-  accessToken,
   selectedTab,
   onSelectedTabChange,
   isChatLoading,
@@ -26,8 +24,6 @@ export function Preview({
   result,
   onClose,
 }: {
-  teamID: string | undefined
-  accessToken: string | undefined
   selectedTab: 'code' | 'fragment'
   onSelectedTabChange: Dispatch<SetStateAction<'code' | 'fragment'>>
   isChatLoading: boolean
@@ -102,8 +98,6 @@ export function Preview({
                 <DeployDialog
                   url={result.url!}
                   sbxId={result.sbxId!}
-                  teamID={teamID}
-                  accessToken={accessToken}
                 />
               )}
             </div>
